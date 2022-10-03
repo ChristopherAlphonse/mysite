@@ -4,6 +4,8 @@ from django.db import models
 from wagtail.models import Page
 from wagtail.admin.edit_handlers import FieldPanel
 from wagtail.snippets.models import register_snippet
+from wagtail.snippets.edit_handlers import SnippetChooserPanel
+
 
 
 
@@ -23,7 +25,7 @@ class GenericPage(Page):
    
    author = models.ForeignKey(
       "Author",
-       null=True,
+      null=True,
       blank=True,
       on_delete=models.SET_NULL,
       related_name="+"
@@ -33,13 +35,14 @@ class GenericPage(Page):
       FieldPanel('banner_title'),
       FieldPanel("introduction"),
       FieldPanel("banner_image"),
+      SnippetChooserPanel("author")
 ]
 
 @register_snippet
 class Author(models.Model):
    name = models.CharField(max_length=100) 
    title = models.CharField(blank=True, max_length=100)
-   company_name = models.CharField(blank=True, max_length=100)
+   company_name = models.CharField( blank=True, max_length=100)
    company_url = models.URLField(blank=True)
    image = models.ForeignKey(
       "wagtailimages.Image",
