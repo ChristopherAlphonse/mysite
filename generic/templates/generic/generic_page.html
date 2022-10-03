@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags %}
+{% load static %}
+
+{% block body_class %}template-genericpage{% endblock %}
+
+{% block extra_css %}
+
+
+{% endblock extra_css %}
+
+{% block content %}
+<h1>Generic</h1>
+
+<h3> {{ page.banner_title|richtext }}  <h3>
+
+ 
+
+
+{% endblock content %}
