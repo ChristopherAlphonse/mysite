@@ -1,8 +1,9 @@
+
 from django.db import models
 
 from wagtail.models import Page
-from wagtail.fields import RichTextField
 from wagtail.admin.edit_handlers import FieldPanel
+from wagtail.snippets.models import register_snippet
 
 
 
@@ -15,6 +16,14 @@ class GenericPage(Page):
    banner_image = models.ForeignKey(
       "wagtailimages.Image",
       null=True,
+      blank=False,
+      on_delete=models.SET_NULL,
+      related_name="+"
+   )
+   
+   author = models.ForeignKey(
+      "Author",
+       null=True,
       blank=True,
       on_delete=models.SET_NULL,
       related_name="+"
@@ -25,3 +34,27 @@ class GenericPage(Page):
       FieldPanel("introduction"),
       FieldPanel("banner_image"),
 ]
+
+@register_snippet
+class Author(models.Model):
+   name = models.CharField(max_length=100) 
+   title = models.CharField(blank=True, max_length=100)
+   company_name = models.CharField(blank=True, max_length=100)
+   company_url = models.URLField(blank=True)
+   image = models.ForeignKey(
+      "wagtailimages.Image",
+      null=True,
+      blank=False,
+      on_delete=models.SET_NULL,
+      related_name="+"
+   )
+   
+   panels = [
+      FieldPanel("name"),
+      FieldPanel("title"),
+      FieldPanel("company_name"),
+      FieldPanel("company_url"),
+      FieldPanel("image")
+   ]
+   def __str__(self):
+      return self.name 
