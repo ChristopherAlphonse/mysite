@@ -1,10 +1,12 @@
-
 from django.db import models
 
 from wagtail.models import Page
-from wagtail.admin.edit_handlers import FieldPanel
+from wagtail.admin.panels import FieldPanel
 from wagtail.snippets.models import register_snippet
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
+from wagtail.images.blocks import ImageChooserBlock
+from wagtail.fields import StreamField
+from wagtail.core import blocks
 
 
 
@@ -14,13 +16,14 @@ class GenericPage(Page):
    max_length=255, 
    default="Welcome to Generic")
    
-   introduction = models.TextField(blank=True)
+   introduction = models.TextField(help_text="Text to describe the page", blank=True)
    banner_image = models.ForeignKey(
       "wagtailimages.Image",
       null=True,
       blank=False,
       on_delete=models.SET_NULL,
-      related_name="+"
+      related_name="+",
+      help_text="Landscape mode only; horizontal width between 1000px and 3000px.",
    )
    
    author = models.ForeignKey(
@@ -30,12 +33,23 @@ class GenericPage(Page):
       on_delete=models.SET_NULL,
       related_name="+"
    )
+   
+   body = StreamField([
+      ('heading', blocks.CharBlock()),
+      ('paragraph',blocks.RichTextBlock()),
+      ('image', ImageChooserBlock()),
+], null=True,
+   block_counts={
+   'heading': {'min_num': 1},
+   'image': {'max_num': 5},
+}, use_json_field=True)
 
    content_panels = Page.content_panels + [
       FieldPanel('banner_title'),
       FieldPanel("introduction"),
       FieldPanel("banner_image"),
-      SnippetChooserPanel("author")
+      SnippetChooserPanel("author"),
+      FieldPanel("body")
 ]
 
 @register_snippet
