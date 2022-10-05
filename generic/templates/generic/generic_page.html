@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% load wagtailcore_tags %}
-{% load static wagtailimages_tags %}
+{% load static wagtailimages_tags  %}
 
 {% block body_class %}template-genericPage{% endblock %}
 
@@ -16,9 +16,12 @@
    <h3> {{ page.banner_title|richtext }} <h3>
    <p> {{page.introduction| richtext}} </p>
 
-   <h4>By {{page.author.name}}, {{page.author.company_name}}
+   <h4 class="author-title">By {{page.author.name}}, {{page.author.company_name}}
    </h4>
 
-   
+   <hr>
+
+
+   {% include_block page.body %}
 
 {% endblock content %}

@@ -1,0 +1,19 @@
+.block-heading {
+  font-size: 1.2rem;
+  margin-top: 3rem;
+}
+
+.block-image img {
+  width: 100%;
+  height: auto;
+}
+
+h3 {
+  font-size: 1rem !important;
+}
+
+.author-title {
+  color: #6e6e6e;
+  font-size: 0.8rem;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}

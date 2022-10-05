@@ -34,15 +34,21 @@ class GenericPage(Page):
       related_name="+"
    )
    
+#    body = StreamField([
+#       ('heading', blocks.CharBlock()),
+#       ('paragraph',blocks.RichTextBlock()),
+#       ('image', ImageChooserBlock()),
+# ], null=True,
+#    block_counts={
+#    'heading': {'min_num': 1},
+#    'image': {'max_num': 5},
+# }, use_json_field=True)
+
    body = StreamField([
       ('heading', blocks.CharBlock()),
       ('paragraph',blocks.RichTextBlock()),
       ('image', ImageChooserBlock()),
-], null=True,
-   block_counts={
-   'heading': {'min_num': 1},
-   'image': {'max_num': 5},
-}, use_json_field=True)
+], null=True)
 
    content_panels = Page.content_panels + [
       FieldPanel('banner_title'),
