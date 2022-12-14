@@ -1,1 +1,1 @@
-# Wagtail-tutorial
+# Wagtail-CMS
